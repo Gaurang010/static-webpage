@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gaurang Pant | ML Engineer & AI Innovator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0a0e27;
+            color: #fff;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Animated Background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(45deg, #0a0e27, #1a1f3a, #0a0e27);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .grid-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: -1;
+        }
+
+        /* Floating particles */
+        .particle {
+            position: fixed;
+            width: 4px;
+            height: 4px;
+            background: rgba(0, 255, 255, 0.5);
+            border-radius: 50%;
+            animation: float 20s infinite;
+            z-index: 0;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) translateX(50px); opacity: 0; }
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 14, 39, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0, 255, 255, 0.2);
+            transition: all 0.3s;
+        }
+
+        nav.scrolled {
+            padding: 1rem 5%;
+            box-shadow: 0 5px 20px rgba(0, 255, 255, 0.2);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #00ffff, #ff00ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            padding: 5px 10px;
+            transition: all 0.3s;
+        }
+
+        nav ul li a::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #00ffff, #ff00ff);
+            transition: width 0.3s;
+        }
+
+        nav ul li a:hover::before {
+            width: 100%;
+        }
+
+        nav ul li a:hover {
+            color: #00ffff;
+        }
+
+        /* Hero Section */
+        #home {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            padding: 0 5%;
+        }
+
+        .hero-content h1 {
+            font-size: 4rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(45deg, #00ffff, #ff00ff, #00ffff);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shimmer 3s linear infinite;
+        }
+
+        .hero-content .subtitle {
+            font-size: 1.8rem;
+            color: #00ffff;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: 0% center; }
+            100% { background-position: 200% center; }
+        }
+
+        .hero-content p {
+            font-size: 1.3rem;
+            color: #8892b0;
+            margin-bottom: 2rem;
+            max-width: 700px;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 3rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #00ffff;
+        }
+
+        .stat-label {
+            color: #8892b0;
+            font-size: 0.9rem;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 15px 40px;
+            background: transparent;
+            border: 2px solid #00ffff;
+            color: #00ffff;
+            text-decoration: none;
+            font-weight: bold;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
+            z-index: 1;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, #00ffff, transparent);
+            transition: left 0.5s;
+            z-index: -1;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .cta-button:hover {
+            color: #0a0e27;
+            background: #00ffff;
+            box-shadow: 0 0 20px #00ffff;
+        }
+
+        .cta-button.secondary {
+            border-color: #ff00ff;
+            color: #ff00ff;
+        }
+
+        .cta-button.secondary:hover {
+            background: #ff00ff;
+            box-shadow: 0 0 20px #ff00ff;
+        }
+
+        /* Sections */
+        section {
+            padding: 100px 5%;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #00ffff, transparent);
+        }
+
+        /* About Section */
+        #about {
+            background: rgba(26, 31, 58, 0.5);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 80px 5%;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        .about-text p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #8892b0;
+            margin-bottom: 1.5rem;
+        }
+
+        .about-text strong {
+            color: #00ffff;
+        }
+
+        .highlight-box {
+            background: rgba(0, 255, 255, 0.1);
+            border-left: 4px solid #00ffff;
+            padding: 20px;
+            margin: 2rem 0;
+            border-radius: 5px;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .skill-category h4 {
+            color: #00ffff;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .skill-item {
+            background: rgba(0, 255, 255, 0.1);
+            padding: 12px 15px;
+            border-left: 3px solid #00ffff;
+            transition: all 0.3s;
+            cursor: pointer;
+            margin-bottom: 0.5rem;
+        }
+
+        .skill-item:hover {
+            background: rgba(0, 255, 255, 0.2);
+            transform: translateX(10px);
+            box-shadow: 0 5px 15px rgba(0, 255, 255, 0.3);
+        }
+
+        /* Experience Section */
+        #experience {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(180deg, #00ffff, #ff00ff);
+        }
+
+        .timeline-item {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content {
+            grid-column: 1;
+        }
+
+        .timeline-item:nth-child(even) .timeline-empty {
+            grid-column: 2;
+        }
+
+        .timeline-content {
+            background: rgba(26, 31, 58, 0.6);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            transition: all 0.3s;
+        }
+
+        .timeline-content:hover {
+            transform: translateY(-5px);
+            border-color: #00ffff;
+            box-shadow: 0 10px 30px rgba(0, 255, 255, 0.3);
+        }
+
+        .timeline-date {
+            color: #00ffff;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-title {
+            font-size: 1.5rem;
+            color: #fff;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-company {
+            color: #ff00ff;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .timeline-description {
+            color: #8892b0;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .timeline-skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .timeline-skill {
+            background: rgba(0, 255, 255, 0.2);
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            color: #00ffff;
+        }
+
+        /* Projects Section */
+        #projects {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .project-card {
+            background: rgba(26, 31, 58, 0.6);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            transition: all 0.3s;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(0, 255, 255, 0.1), rgba(255, 0, 255, 0.1));
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .project-card:hover::before {
+            opacity: 1;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            border-color: #00ffff;
+            box-shadow: 0 15px 40px rgba(0, 255, 255, 0.3);
+        }
+
+        .project-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .project-title {
+            font-size: 1.5rem;
+            color: #fff;
+            margin-bottom: 1rem;
+        }
+
+        .project-description {
+            color: #8892b0;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .tech-tag {
+            background: rgba(255, 0, 255, 0.2);
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            color: #ff00ff;
+        }
+
+        /* Education Section */
+        #education {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .education-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .education-card {
+            background: rgba(26, 31, 58, 0.6);
+            padding: 2.5rem;
+            border-radius: 15px;
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            transition: all 0.3s;
+        }
+
+        .education-card:hover {
+            transform: translateY(-5px);
+            border-color: #00ffff;
+            box-shadow: 0 10px 30px rgba(0, 255, 255, 0.3);
+        }
+
+        .education-logo {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .education-title {
+            font-size: 1.8rem;
+            color: #00ffff;
+            margin-bottom: 0.5rem;
+        }
+
+        .education-degree {
+            font-size: 1.2rem;
+            color: #fff;
+            margin-bottom: 0.5rem;
+        }
+
+        .education-date {
+            color: #8892b0;
+            margin-bottom: 1rem;
+        }
+
+        .education-grade {
+            background: rgba(0, 255, 255, 0.1);
+            padding: 10px 15px;
+            border-radius: 5px;
+            color: #00ffff;
+            font-weight: bold;
+            display: inline-block;
+        }
+
+        /* Contact Section */
+        #contact {
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .contact-card {
+            background: rgba(26, 31, 58, 0.6);
+            padding: 30px;
+            border-radius: 15px;
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-10px);
+            border-color: #00ffff;
+            box-shadow: 0 10px 30px rgba(0, 255, 255, 0.3);
+        }
+
+        .contact-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .social-link {
+            width: 60px;
+            height: 60px;
+            border: 2px solid #00ffff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #00ffff;
+            text-decoration: none;
+            font-size: 1.5rem;
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+
+        .social-link:hover {
+            background: #00ffff;
+            color: #0a0e27;
+            transform: rotate(360deg);
+            box-shadow: 0 0 20px #00ffff;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(10, 14, 39, 0.9);
+            text-align: center;
+            padding: 30px 5%;
+            border-top: 1px solid rgba(0, 255, 255, 0.2);
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .hero-content h1 { font-size: 3rem; }
+            .hero-content .subtitle { font-size: 1.5rem; }
+            .hero-content p { font-size: 1.1rem; }
+            .about-content { grid-template-columns: 1fr; }
+            .skills-grid { grid-template-columns: 1fr; }
+            .timeline::before { left: 20px; }
+            .timeline-item { grid-template-columns: 1fr; }
+            .timeline-item:nth-child(even) .timeline-content { grid-column: 1; }
+            .timeline-content { margin-left: 60px; }
+            nav ul { gap: 1rem; font-size: 0.9rem; }
+            .section-title { font-size: 2rem; }
+            .projects-grid { grid-template-columns: 1fr; }
+            .education-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 600px) {
+            .hero-content h1 { font-size: 2rem; }
+            .hero-stats { gap: 1.5rem; }
+            .stat-number { font-size: 2rem; }
+            .cta-buttons { flex-direction: column; width: 100%; }
+            .cta-button { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation"></div>
+    <div class="grid-overlay"></div>
+
+    <nav id="navbar">
+        <div class="logo">Gaurang Pant</div>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#education">Education</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <section id="home">
+        <div class="hero-content">
+            <h1>Gaurang Pant</h1>
+            <p class="subtitle">Machine Learning Engineer & AI Innovator</p>
+            <p>Specializing in Computer Vision, Deep Learning, and Autonomous Systems | Building AI solutions for real-world impact</p>
+            
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <div class="stat-number">9.0</div>
+                    <div class="stat-label">CGPA</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">464+</div>
+                    <div class="stat-label">Connections</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">5+</div>
+                    <div class="stat-label">Projects</div>
+                </div>
+            </div>
+
+            <div class="cta-buttons">
+                <a href="#projects" class="cta-button">View Projects</a>
+                <a href="#contact" class="cta-button secondary">Get In Touch</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="about">
+        <h2 class="section-title">About Me</h2>
+        <div class="about-content">
+            <div class="about-text">
+                <p>Hi! I'm <strong>Gaurang Pant</strong>, a passionate Machine Learning Engineer and AI enthusiast currently pursuing my <strong>Bachelor of Technology at VIT-AP</strong> with a stellar <strong>9.0 CGPA</strong>. I'm driven by the intersection of artificial intelligence, robotics, and real-world problem-solving.</p>
+                
+                <p>My journey in AI has taken me through exciting challenges, from completing an <strong>Academic Internship at the National University of Singapore (NUS)</strong> focused on Big Data Analytics and Deep Learning, to leading innovative projects in autonomous drone systems and wildfire surveillance.</p>
+
+                <div class="highlight-box">
+                    <p><strong>🎯 Current Focus:</strong> As Vice President of Team Next Nexus VIT-AP and the AI-Based Productivity Tools Club, I'm leading cutting-edge research in autonomous systems, computer vision, and deep learning applications.</p>
+                </div>
+
+                <p>I thrive on transforming complex AI concepts into practical solutions that make a difference. Whether it's developing fire detection systems with CNNs, implementing YOLOv5 for real-time object detection, or designing autonomous navigation algorithms, I'm always pushing the boundaries of what's possible with AI.</p>
+            </div>
+
+            <div>
+                <div class="skills-grid">
+                    <div class="skill-category">
+                        <h4>🤖 AI & ML</h4>
+                        <div class="skill-item">Machine Learning</div>
+                        <div class="skill-item">Deep Learning</div>
+                        <div class="skill-item">Computer Vision</div>
+                        <div class="skill-item">Neural Networks</div>
+                        <div class="skill-item">TensorFlow & Keras</div>
+                    </div>
+                    <div class="skill-category">
+                        <h4>💻 Development</h4>
+                        <div class="skill-item">Python</div>
+                        <div class="skill-item">OpenCV</div>
+                        <div class="skill-item">Web Development</div>
+                        <div class="skill-item">Data Analytics</div>
+                        <div class="skill-item">Big Data</div>
+                    </div>
+                </div>
+
+                <div class="skill-category" style="margin-top: 2rem;">
+                    <h4>🚀 Specializations</h4>
+                    <div class="skill-item">Autonomous Systems</div>
+                    <div class="skill-item">Fire Detection AI</div>
+                    <div class="skill-item">YOLOv5 Object Detection</div>
+                    <div class="skill-item">Drone Technology</div>
+                    <div class="skill-item">Research & Innovation</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="experience">
+        <h2 class="section-title">Experience</h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-date">Apr 2025 - Present</div>
+                    <div class="timeline-title">Vice President</div>
+                    <div class="timeline-company">Team Next Nexus VIT-AP</div>
+                    <div class="timeline-description">
+                        Leading the technical direction and innovation initiatives for VIT-AP's premier tech club. Spearheading AI/ML projects, coordinating research activities, and mentoring team members in cutting-edge technologies.
+                    </div>
+                    <div class="timeline-skills">
+                        <span class="timeline-skill">Machine Learning</span>
+                        <span class="timeline-skill">Web Development</span>
+                        <span class="timeline-skill">Leadership</span>
+                        <span class="timeline-skill">Project Management</span>
+                    </div>
+                </div>
+                <div class="timeline-empty"></div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-empty"></div>
+                <div class="timeline-content">
+                    <div class="timeline-date">Dec 2024 - May 2025</div>
+                    <div class="timeline-title">Vice President</div>
+                    <div class="timeline-company">AI-Based Productivity Tools Club - VIT AP</div>
+                    <div class="timeline-description">
+                        Directed the development of AI-powered productivity solutions and organized workshops on machine learning applications. Fostered a collaborative environment for students to explore AI innovations.
+                    </div>
+                    <div class="timeline-skills">
+                        <span class="timeline-skill">Artificial Intelligence</span>
+                        <span class="timeline-skill">Machine Learning</span>
+                        <span class="timeline-skill">Team Leadership</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-date">Oct 2024 - Dec 2024</div>
+                    <div class="timeline-title">Tech Manager</div>
+                    <div class="timeline-company">Team Next Nexus VIT-AP</div>
+                    <div class="timeline-description">
+                        Managed technical operations and coordinated cross-functional teams for various AI/ML projects. Implemented agile methodologies and ensured timely delivery of project milestones.
+                    </div>
+                    <div class="timeline-skills">
+                        <span class="timeline-skill">Project Management</span>
+                        <span class="timeline-skill">Project Planning</span>
+                        <span class="timeline-skill">Agile</span>
+                    </div>
+                </div>
+                <div class="timeline-empty"></div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-empty"></div>
+                <div class="timeline-content">
+                    <div class="timeline-date">Aug 2024 - Oct 2024</div>
+                    <div class="timeline-title">Research Lead</div>
+                    <div class="timeline-company">Team Next Nexus VIT-AP</div>
+                    <div class="timeline-description">
+                        Led research initiatives in AI and machine learning, exploring novel approaches to computer vision and autonomous systems. Published findings and presented at technical forums.
+                    </div>
+                    <div class="timeline-skills">
+                        <span class="timeline-skill">Research Skills</span>
+                        <span class="timeline-skill">Technical Writing</span>
+                        <span class="timeline-skill">Innovation</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <h2 class="section-title">Featured Projects</h2>
+        <div class="projects-grid">
+            <div class="project-card">
+                <div class="project-icon">🚁</div>
+                <div class="project-title">Autonomous Drone Surveillance System</div>
+                <div class="project-description">
+                    Developed an advanced AI-powered drone system for wildfire detection and surveillance. Implemented YOLOv5 for real-time fire detection, dynamic obstacle avoidance using OpenCV and Shapely, and optimized patrol algorithms for comprehensive area coverage.
+                </div>
+                <div class="project-tech">
+                    <span class="tech-tag">YOLOv5</span>
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">OpenCV</span>
+                    <span class="tech-tag">Computer Vision</span>
+                    <span class="tech-tag">Robotics</span>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-icon">🔥</div>
+                <div class="project-title">Fire Detection & Emergency Response</div>
+                <div class="project-description">
+                    Built a comprehensive deep learning solution for indoor and outdoor fire detection during NUS internship. Developed CNN models for real-time flame detection, fire intensity analysis, and automated emergency alert systems with high accuracy.
+                </div>
+                <div class="project-tech">
+                    <span class="tech-tag">TensorFlow</span>
+                    <span class="tech-tag">Keras</span>
+                    <span class="tech-tag">Deep Learning</span>
+                    <span class="tech-tag">CNN</span>
+                    <span class="tech-tag">OpenCV</span>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-icon">🤖</div>
+                <div class="project-title">AI-Powered Obstacle Avoidance
